@@ -1,0 +1,3 @@
+variable "initial_token" {
+
+}
