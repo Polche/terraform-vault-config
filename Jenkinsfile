@@ -11,13 +11,14 @@ pipeline {
   //      image 'hashicorp/terraform:light'
   //     }
   // }
-  stage('checkout repo') {
-    steps {
-      checkout scm
-    }
-  }
 
   stages {
+    stage('checkout repo') {
+      steps {
+        checkout scm
+      } 
+    }
+
     stage('install_deps') {
       steps {
         sh "apt install wget zip python-pip -y"
