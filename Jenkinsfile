@@ -11,7 +11,7 @@ pipeline {
     //      image 'hashicorp/terraform:light'
     //     }
     // }
-      stages {a
+      stages {
         stage('install_deps') {
           steps {
             sh "apt install wget zip python-pip -y"
