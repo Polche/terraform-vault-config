@@ -13,13 +13,13 @@ pipeline {
   // }
 
   stages {
-    stage('checkout repo') {
+    stage('Checkout repo') {
       steps {
         checkout scm
       } 
     }
 
-    stage('install_deps') {
+    stage('Install deps') {
       steps {
         sh "apt install wget zip python-pip -y"
         sh "apt-get update && apt-get install -y"
@@ -38,17 +38,18 @@ pipeline {
     }
     // Run terraform fmt and validate
 
-    // stage('terraform fmt') {
-    //   steps {
-    //     sh 'terraform fmt ...'
-    //   }
-    // }
+    stage('terraform fmt') {
+      steps {
+        sh 'terraform fmt -list=true -write=false -diff=true -check=true'
+      }
+    }
+
     stage('terraform plan') {
       steps {
         sh 'terraform plan -no-color -out=.tfplan'
       }
     }
-    stage('CleanWorkspace') {
+    stage('Clean up workspace') {
       steps {
         cleanWs()
       }
