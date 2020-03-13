@@ -83,7 +83,6 @@ pipeline {
              subject: "Pipeline Succeeded: ${currentBuild.fullDisplayName}",
              body: "Something is wrong with ${env.BUILD_URL}"
         }
-        }
         unstable {
             echo 'Unstable :/'
         }
