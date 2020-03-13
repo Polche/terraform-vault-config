@@ -40,7 +40,7 @@ pipeline {
 
     stage('terraform fmt') {
       steps {
-        sh 'terraform fmt -list=true -write=false -diff=true -check=true'
+        sh 'terraform fmt -list=true -write=false -diff=true -check=true -recursive'
       }
     }
 
@@ -49,24 +49,45 @@ pipeline {
         sh 'terraform plan -no-color -out=.tfplan'
       }
     }
-    stage('Clean up workspace') {
-      steps {
-        cleanWs()
-      }
+
+        // Wait for approval
+    stage('approval') {
+      // options {
+      //    timeout(time: 1, unit: 'HOURS')
+      // }
+        steps {
+          input 'approve the plan to proceed and apply'
+      //notifySlack("Do you approve the Terraform plan? $jenkins_server_url/jenkins/job/$JOB_NAME", notification_channel, [])
+        }
     }
-    // Wait for approval
-    //     stage('approval') {
-    //     //   options {
-    //     //     timeout(time: 1, unit: 'HOURS')
-    //     //   }
-    //      steps {
-    //         input 'approve the plan to proceed and apply'
-    //       }
-    //     stage('terraform apply') {
-    //       steps {
-    //         sh 'terraform apply'
-    //       }
-    //     }
-    //   }
+  //stage('terraform apply') {
+  //    steps {
+  //       sh 'terraform apply'
+  //     }
+  //}
+  // stage('Clean up workspace') {
+  //     steps {
+  //       cleanWs()
+  //     }
+  //   }
+  // }
   }
+  post {
+        always {
+            echo 'Clean up woprkspace'
+            cleanWs() /* clean up our workspace */
+        }
+        success {
+            echo 'Succeeded'
+        }
+        unstable {
+            echo 'Unstable :/'
+        }
+        failure {
+            echo 'Failed'
+        }
+        changed {
+            echo 'Changes applied'
+        }
+    }
 }
