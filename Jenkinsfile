@@ -79,9 +79,9 @@ pipeline {
         }
         success {
             echo 'Succeeded'
-            mail to: 'polina.apostolova@ecs-digital.com',
-             subject: "Pipeline Succeeded: ${currentBuild.fullDisplayName}",
-             body: "Something is wrong with ${env.BUILD_URL}"
+            // mail to: 'polina.apostolova@ecs-digital.com',
+            //  subject: "Pipeline Succeeded: ${currentBuild.fullDisplayName}",
+            //  body: "Something is wrong with ${env.BUILD_URL}"
         }
         unstable {
             echo 'Unstable :/'
