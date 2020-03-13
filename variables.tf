@@ -1,3 +1,3 @@
-variable "initial_token" {
+variable "token" {
 
 }
