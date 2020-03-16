@@ -79,7 +79,7 @@ pipeline {
         }
         success {
             echo 'Succeeded'
-            // mail to: 'polina.apostolova@ecs-digital.com',
+            // mail to: '',
             //  subject: "Pipeline Succeeded: ${currentBuild.fullDisplayName}",
             //  body: "Something is wrong with ${env.BUILD_URL}"
         }
